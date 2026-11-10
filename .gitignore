@@ -1,0 +1,63 @@
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.venv/
+env/
+ENV/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+htmlcov/
+.coverage
+.coverage.*
+dist/
+build/
+
+# ===== Node / Frontend =====
+node_modules/
+frontend/dist/
+frontend/node_modules/
+*.local
+.npm
+
+# ===== Environment & secrets =====
+.env
+.env.local
+.env.*.local
+*.env
+!*.env.example
+!.env.example
+
+# ===== Editor / OS =====
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ===== Agent packaging =====
+monitoring-agent/build/
+monitoring-agent/dist/
+*.spec
+
+# ===== Logs =====
+*.log
+siims_agent.log
+
+# ===== Kiro / agent task artifacts =====
+.agents/
+
+# ===== Temp verification / scratch files =====
+_*.out
+_*.err
+_*.txt
+_*.log
+_*.py
+check.txt
+git_status.txt
