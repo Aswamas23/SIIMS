@@ -1,0 +1,13 @@
+[server]
+url = http://SERVER_IP:8000
+api_key = YOUR_API_KEY_HERE
+computer_id = 0
+
+[agent]
+heartbeat_interval_seconds = 60
+software_scan_interval_hours = 6
+log_level = INFO
+log_file = siims_agent.log
+queue_db = siims_queue.db
+max_queue_age_days = 7
+retry_attempts = 3
