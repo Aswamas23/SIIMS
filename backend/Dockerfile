@@ -16,9 +16,14 @@ COPY app/ ./app/
 COPY migrations/ ./migrations/
 COPY alembic.ini ./
 
+# Copy database utilities (seed script)
+# Note: seed_data.py is in the database/ directory one level up,
+# passed via build context. The docker-compose build context is ../backend
+# so seed_data.py is added separately via the compose file or run manually.
+# See seed instructions below.
+
 # Expose the FastAPI port
 EXPOSE 8000
 
 # Run migrations on startup, then start the server.
-# Note: in production, run migrations as a separate step (see installation guide).
 CMD ["sh", "-c", "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"]

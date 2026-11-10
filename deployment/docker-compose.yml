@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   postgres:
     image: postgres:16-alpine
@@ -37,13 +35,17 @@ services:
       FRONTEND_URL: ${FRONTEND_URL:-http://localhost}
       ADMIN_EMAIL: ${ADMIN_EMAIL}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD}
-      ADMIN_FULL_NAME: ${ADMIN_FULL_NAME}
+      ADMIN_FULL_NAME: ${ADMIN_FULL_NAME:-System Administrator}
       SMTP_HOST: ${SMTP_HOST:-}
       SMTP_PORT: ${SMTP_PORT:-587}
       SMTP_USER: ${SMTP_USER:-}
       SMTP_PASSWORD: ${SMTP_PASSWORD:-}
       SMTP_FROM: ${SMTP_FROM:-}
       SMTP_TLS: ${SMTP_TLS:-true}
+    volumes:
+      # Mount the database folder so the seed script is runnable in-container:
+      #   docker compose exec backend python /database/seed_data.py
+      - ../database:/database:ro
     ports:
       - "8000:8000"
     networks:

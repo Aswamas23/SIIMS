@@ -10,8 +10,20 @@ import asyncio
 import sys
 import os
 
-# Add backend to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "backend"))
+# Locate the backend package regardless of where this script runs:
+#   - from the repo (database/seed_data.py → ../backend has app/)
+#   - inside the Docker container (mounted at /database, backend at /app)
+_here = os.path.dirname(os.path.abspath(__file__))
+_candidates = [
+    os.path.join(_here, "..", "backend"),  # repo layout
+    _here,                                  # if placed inside backend/
+    os.path.join(_here, ".."),              # if placed at backend/seed_data.py
+    "/app",                                  # Docker container WORKDIR
+]
+for _c in _candidates:
+    if os.path.isdir(os.path.join(_c, "app")):
+        sys.path.insert(0, _c)
+        break
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
