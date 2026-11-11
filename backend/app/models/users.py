@@ -19,7 +19,7 @@ class User(Base):
     email = Column(String(255), unique=True, nullable=False, index=True)
     full_name = Column(String(255), nullable=False)
     hashed_password = Column(String(255), nullable=False)
-    role = Column(SAEnum(UserRole), nullable=False, default=UserRole.ict_technician)
+    role = Column(SAEnum(UserRole, native_enum=False), nullable=False, default=UserRole.ict_technician)
     is_active = Column(Boolean, default=True, nullable=False)
     phone = Column(String(50), nullable=True)
     created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), nullable=False)

@@ -39,12 +39,12 @@ docker-compose up --build -d
 
 ### Step 5 — Seed the database (first run only).
 ```bash
-docker-compose exec backend python -c "
-import asyncio, os
-from app.core.database import async_sessionmaker, engine
-from app.models import *
-from app.core.security import hash_password
-from app.models.users import User, UserRole
+    docker-compose exec backend python -c "
+    import asyncio, os
+    from app.core.database import async_sessionmaker, engine
+    from app.models import *
+    from app.core.security import hash_password
+    from app.models.users import User, UserRole
 
 async def seed():
     from app.core.database import Base

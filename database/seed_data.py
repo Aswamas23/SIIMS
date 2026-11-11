@@ -11,17 +11,18 @@ import sys
 import os
 
 # Locate the backend package regardless of where this script runs:
-#   - from the repo (database/seed_data.py → ../backend has app/)
 #   - inside the Docker container (mounted at /database, backend at /app)
+#   - from the repo (database/seed_data.py → ../backend has app/)
 _here = os.path.dirname(os.path.abspath(__file__))
 _candidates = [
-    os.path.join(_here, "..", "backend"),  # repo layout
-    _here,                                  # if placed inside backend/
-    os.path.join(_here, ".."),              # if placed at backend/seed_data.py
-    "/app",                                  # Docker container WORKDIR
+    "/app",                                   # Docker container WORKDIR (package at /app/app)
+    os.path.join(_here, "..", "backend"),     # repo layout (script in database/)
+    _here,                                    # if placed inside backend/
 ]
 for _c in _candidates:
-    if os.path.isdir(os.path.join(_c, "app")):
+    # Match the real package (has app/core/database.py), not a same-named dir.
+    # This avoids false matches like "/" where /app is just the WORKDIR.
+    if os.path.isfile(os.path.join(_c, "app", "core", "database.py")):
         sys.path.insert(0, _c)
         break
 
